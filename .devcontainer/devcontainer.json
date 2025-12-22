@@ -1,6 +1,11 @@
 {
   "name": "PixelChat Flutter Dev",
-  "image": "cirrusci/flutter:stable",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/java:1": {}
+  },
 
   "customizations": {
     "vscode": {
@@ -11,7 +16,5 @@
     }
   },
 
-  "features": {
-    "ghcr.io/devcontainers/features/java:1": {}
-  }
+  "postCreateCommand": "bash .devcontainer/install-flutter.sh"
 }
