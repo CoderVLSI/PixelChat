@@ -1,0 +1,49 @@
+name: Build PixelChat APK
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.19.0'
+        channel: 'stable'
+        cache: true
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Build APK
+      run: flutter build apk --release
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: pixelchat-apk
+        path: build/app/outputs/flutter-apk/app-release.apk
+        retention-days: 30
+
+    - name: Release Summary
+      run: |
+        echo "## PixelChat APK Built Successfully! 🎉" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Download the APK from the Artifacts section below" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "📱 **Filename:** \`app-release.apk\`" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Install Instructions:" >> $GITHUB_STEP_SUMMARY
+        echo "1. Download the APK" >> $GITHUB_STEP_SUMMARY
+        echo "2. Transfer to your Android phone" >> $GITHUB_STEP_SUMMARY
+        echo "3. Install and enjoy PixelChat! 🎮💬" >> $GITHUB_STEP_SUMMARY
