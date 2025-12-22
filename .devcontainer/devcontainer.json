@@ -1,10 +1,6 @@
 {
   "name": "PixelChat Flutter Dev",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {}
-  },
+  "image": "cirrusci/flutter:stable",
 
   "customizations": {
     "vscode": {
@@ -15,7 +11,7 @@
     }
   },
 
-  "postCreateCommand": "bash .devcontainer/setup.sh",
-
-  "forwardPorts": [8080, 3000]
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {}
+  }
 }
