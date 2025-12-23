@@ -1,11 +1,12 @@
 workflows:
-  default-workflow:
-    name: Default Workflow
+  android-workflow:
+    name: Android Workflow
     instance_type: linux
     max_build_duration: 60
     environment:
       flutter: stable
-      xcode: latest
+      vars:
+        CODE_MAGIC_URL: https://codemagic.io/applications
     cache:
       cache_paths:
         - ~/.pub-cache
@@ -19,7 +20,7 @@ workflows:
         script: |
           flutter pub get
 
-      - name: Build APK
+      - name: Build APK (Android only)
         script: |
           flutter build apk --release --debug-prints
 
