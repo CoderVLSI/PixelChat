@@ -25,6 +25,17 @@ jobs:
         channel: 'stable'
         cache: true
 
+    - name: Setup Android SDK
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y android-sdk
+
+    - name: Accept Android licenses
+      run: yes | flutter doctor --android-licenses
+
+    - name: Run Flutter doctor
+      run: flutter doctor -v
+
     - name: Install dependencies
       run: flutter pub get
 
