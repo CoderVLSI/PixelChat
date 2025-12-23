@@ -1,0 +1,55 @@
+name: Build PixelChat APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+        cache: true
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Build APK
+      run: flutter build apk --release
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: pixelchat-apk
+        path: build/app/outputs/flutter-apk/app-release.apk
+        retention-days: 90
+
+    - name: Create Release Summary
+      run: |
+        echo "## 🎉 PixelChat APK Built Successfully!" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 📥 Download Instructions:" >> $GITHUB_STEP_SUMMARY
+        echo "1. Scroll down to **Artifacts** section" >> $GITHUB_STEP_SUMMARY
+        echo "2. Download \`pixelchat-apk\`" >> $GITHUB_STEP_SUMMARY
+        echo "3. Extract the zip file" >> $GITHUB_STEP_SUMMARY
+        echo "4. Install \`app-release.apk\` on your Android phone" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 🎮 Features:" >> $GITHUB_STEP_SUMMARY
+        echo "- Real-time messaging with Firebase" >> $GITHUB_STEP_SUMMARY
+        echo "- Pixel art design" >> $GITHUB_STEP_SUMMARY
+        echo "- User authentication" >> $GITHUB_STEP_SUMMARY
+        echo "- Cross-device sync" >> $GITHUB_STEP_SUMMARY
