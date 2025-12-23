@@ -25,13 +25,12 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "com.google.gms.google-services"
-    // The Flutter Gradle plugin must be applied after the Android and Kotlin Gradle plugins
     id "dev.flutter.flutter-gradle-plugin"
 }
 
 android {
     namespace "com.example.pixelchat"
-    compileSdkVersion 34
+    compileSdk 34
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -48,8 +47,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.pixelchat"
-        minSdkVersion 21
-        targetSdkVersion 34
+        minSdk 21
+        targetSdk 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -63,8 +62,4 @@ android {
 
 flutter {
     source '../..'
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
